@@ -8,7 +8,21 @@ boxInsideZ = 25;
 	display() flasherBoxBottom();
 module flasherBoxBottom()
 {
-    boxBottom();
+    difference()
+    {
+        boxBottom();
+
+        // Hole for wires to led strip:
+        translate([boxOutsideX/2, boxWallXY/2, 10]) rotate([90,0,0]) hull()
+        {
+            ledStripWireZ = 1.7;
+            ledStripWireX = 3.6;
+
+            dx = ledStripWireX/2 - ledStripWireZ/2;
+            tcy([ dx,0,-10], d=1.7, h=20);
+            tcy([-dx,0,-10], d=ledStripWireZ, h=20);
+        }
+    }
 }
 
 module flasherBoxTop()
