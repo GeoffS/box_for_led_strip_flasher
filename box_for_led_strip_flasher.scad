@@ -1,5 +1,4 @@
-include <../OpenSCADdesigns/MakeInclude.scad>
-include <box_for_2x18650_battery_holder_with_switch.scad>
+include <../box_for_2x18650_battery_holder_with_switch/box_for_2x18650_battery_holder_with_switch.scad>
 
 makeTop = false;
 makeBottom = false;
