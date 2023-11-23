@@ -5,6 +5,17 @@ makeBottom = false;
 
 boxInsideZ = 25;
 
+	display() flasherBoxBottom();
+module flasherBoxBottom()
+{
+    boxBottom();
+}
+
+module flasherBoxTop()
+{
+    boxTop();
+}
+
 module clip(d=0)
 {
     // tc([-200, boxOutsideY/2-d, -200], [400, 400, 400]);
@@ -15,13 +26,9 @@ module clip(d=0)
 
 if(developmentRender)
 {
-	display() boxBottom();
-    // display() translate([0,0,0.1]) boxTop();
-    // displayGhost() boxTop();
-
-    // display() boxTop();
-    // display() #boxBottom();
-    // displayGhost() boxBottom();
+	display() flasherBoxBottom();
+    // display() translate([0,0,0.1]) flasherBoxTop();
+    // displayGhost() flasherBoxTop();
 }
 else
 {
