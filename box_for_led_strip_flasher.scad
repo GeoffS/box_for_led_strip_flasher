@@ -10,7 +10,11 @@ module flasherBoxBottom()
 {
     difference()
     {
-        boxBottom();
+        union()
+        {
+            boxBottom();
+            ledWireSupport();
+        }
 
         ledWireHole();
     }
@@ -39,12 +43,19 @@ module ledWireHole()
 
 module ledWireHalfHole(dx)
 {
-    tcy([dx, 0 ,-20+1], d=ledStripWireZ, h=20);
+    tcy([dx, 0 ,-40+1], d=ledStripWireZ, h=40);
 }
 
 module ledWireHalfChamfer(dx)
 {
     translate([dx, 0, -ledStripWireZ/2-boxWallXY/2]) cylinder(d2=10, d1=0, h=5);
+}
+
+module ledWireSupport()
+{
+    d=8;
+    wireTieWidth = 4;
+    tcy([boxOutsideX/2, boxWallXY + d/2 + wireTieWidth, 0], d=d, h=boxWallZ+10);
 }
 
 module flasherBoxTop()
@@ -58,7 +69,7 @@ module clip(d=0)
     // rotate([0,0,45]) tcu([-200, 0-d, -200], 400);
     // tcu([batteryLeadsHoleX, -200, -200], 400+d);
     // tcu([batteryLeadsHoleX+5-d, -200, -200], 400);
-    tcu([-10, -10, 10-d], 400);
+    // tcu([-10, -10, 10-d], 400);
 }
 
 if(developmentRender)
