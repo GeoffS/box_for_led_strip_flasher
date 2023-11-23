@@ -1,9 +1,16 @@
-include <../box_for_2x18650_battery_holder_with_switch/box_for_2x18650_battery_holder_with_switch.scad>
-
 makeTop = false;
 makeBottom = false;
 
-boxInsideZ = 25;
+screwExtendingBelowConverterBoard = 5.5;
+bottomOfScrewHoleZ = 1;
+boardPostZ = screwExtendingBelowConverterBoard + bottomOfScrewHoleZ;
+
+clearanceAboveBoard = 17;
+
+// Needs to be included here (instead of at the top) because boxInsideZ is declared in there.
+include <../box_for_2x18650_battery_holder_with_switch/box_for_2x18650_battery_holder_with_switch.scad>
+
+boxInsideZ = boardPostZ + clearanceAboveBoard;
 
 	display() flasherBoxBottom();
 module flasherBoxBottom()
@@ -14,9 +21,51 @@ module flasherBoxBottom()
         {
             boxBottom();
             ledWireSupport();
+            converterMount();
         }
 
+        converterMountHoles();
+
         ledWireHole();
+    }
+}
+
+cmX1 = boxWallXY + 6.5;
+cmY1 = 65; //boxOutsideY-boxWallXY - 6;
+converterMount1 = [cmX1, cmY1];
+converterMount2 = [cmX1+15.8, cmY1-31.1];
+
+module converterMount()
+{
+    converterPost(converterMount1);
+    converterPost(converterMount2);
+}
+
+module converterMountHoles()
+{
+    converterMountHole(converterMount1);
+    converterMountHole(converterMount2);
+}
+
+module converterMountHole(p)
+{
+    tcy([p.x, p.y, bottomOfScrewHoleZ], d=2.5, h=20);
+}
+
+module converterPost(p)
+{
+    translate([p.x, p.y, 0])
+    {
+        difference()
+        {
+            union()
+            {
+                d = 4;
+                cylinder(d=d, h=boardPostZ);
+                cylinder(d1=10, d2=d, h=boardPostZ - 0.5);
+            }
+            
+        }
     }
 }
 
