@@ -12,7 +12,6 @@ include <../box_for_2x18650_battery_holder_with_switch/box_for_2x18650_battery_h
 
 boxInsideZ = boardPostZ + clearanceAboveBoard;
 
-	display() flasherBoxBottom();
 module flasherBoxBottom()
 {
     difference()
@@ -69,8 +68,8 @@ module converterPost(p)
     }
 }
 
-ledStripWireZ = 1.7;
-ledStripWireX = 3.6;
+ledStripWireZ = 2.1;
+ledStripWireX = 4;
 module ledWireHole()
 {
     translate([boxOutsideX/2, 0, 10]) rotate([90,0,0]) 
@@ -82,6 +81,11 @@ module ledWireHole()
             ledWireHalfHole( dx);
             ledWireHalfHole(-dx);
         }
+        translate([0,0,-5]) hull()
+        {
+            ledWireHalfHole( dx, dd=0.5);
+            ledWireHalfHole(-dx, dd=0.5);
+        }
         hull()
         {
             ledWireHalfChamfer( dx);
@@ -90,9 +94,9 @@ module ledWireHole()
     }
 }
 
-module ledWireHalfHole(dx)
+module ledWireHalfHole(dx, dd=0)
 {
-    tcy([dx, 0 ,-40+1], d=ledStripWireZ, h=40);
+    tcy([dx, 0 ,-40+1], d=ledStripWireZ+dd, h=40);
 }
 
 module ledWireHalfChamfer(dx)
@@ -129,6 +133,6 @@ if(developmentRender)
 }
 else
 {
-	if(makeTop) rotate([0,0,90]) rotate(180, [0,1,0]) translate([0,0,-boxOutsideZ]) boxTop();
-    if(makeBottom) rotate([0,0,90]) boxBottom();
+	if(makeTop) rotate([0,0,90]) rotate(180, [0,1,0]) translate([0,0,-boxOutsideZ]) flasherBoxTop();
+    if(makeBottom) rotate([0,0,90]) flasherBoxBottom();
 }
