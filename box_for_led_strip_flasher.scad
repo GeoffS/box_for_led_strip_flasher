@@ -30,9 +30,9 @@ module flasherBoxBottom()
 }
 
 cmX1 = boxWallXY + 6.5;
-cmY1 = 65; //boxOutsideY-boxWallXY - 6;
-converterMount1 = [cmX1, cmY1];
-converterMount2 = [cmX1+15.8, cmY1-31.1];
+cmY1 = boxOutsideY - boxWallXY - 15;
+converterMount1 = [cmX1+15.8, cmY1];
+converterMount2 = [cmX1, cmY1-31.1];
 
 module converterMount()
 {
