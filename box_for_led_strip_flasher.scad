@@ -68,8 +68,8 @@ module converterPost(p)
     }
 }
 
-ledStripWireZ = 2.1;
-ledStripWireX = 4;
+ledStripWireZ = 2.1 + 0.62;
+ledStripWireX = 4 + 0.77;
 module ledWireHole()
 {
     translate([boxOutsideX/2, 0, 10]) rotate([90,0,0]) 
@@ -106,7 +106,7 @@ module ledWireHalfChamfer(dx)
 
 module ledWireSupport()
 {
-    d=8;
+    d=10;
     wireTieWidth = 4;
     tcy([boxOutsideX/2, boxWallXY + d/2 + wireTieWidth, 0], d=d, h=boxWallZ+10);
 }
