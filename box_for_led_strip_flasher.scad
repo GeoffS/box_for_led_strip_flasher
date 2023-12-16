@@ -87,8 +87,18 @@ module converterPost(p)
     }
 }
 
-ledStripWireZ = 2.1 + 0.62;
-ledStripWireX = 4 + 0.77;
+// // Just shrink tube:
+// ledStripWireZ = 2.1 + 0.62;
+// ledStripWireX = 4 + 0.77;
+// ledWireSupportDia = 10;
+// ledWireSupportZ = 10;
+
+// 3mm Dyneema sheath:
+ledStripWireZ = 3.4;
+ledStripWireX = 5.2;
+ledWireSupportDia = 11;
+ledWireSupportZ = 11;
+
 module ledWireHole()
 {
     translate([boxOutsideX/2, 0, 10]) rotate([90,0,0]) 
@@ -125,9 +135,9 @@ module ledWireHalfChamfer(dx)
 
 module ledWireSupport()
 {
-    d=10;
+    d=ledWireSupportDia;
     wireTieWidth = 4;
-    tcy([boxOutsideX/2, boxWallXY + d/2 + wireTieWidth, 0], d=d, h=boxWallZ+10);
+    tcy([boxOutsideX/2, boxWallXY + d/2 + wireTieWidth, 0], d=d, h=boxWallZ+ledWireSupportZ);
 }
 
 module flasherBoxTop()
@@ -143,6 +153,7 @@ module clip(d=0)
     // tcu([batteryLeadsHoleX+5-d, -200, -200], 400);
     // tcu([-10, -10, 10-d], 400);
     // tcu([boxOutsideX-15.5-400, -200, -10], 400);
+    // tcu([-10, 20, -10], 400);
 }
 
 if(developmentRender)
