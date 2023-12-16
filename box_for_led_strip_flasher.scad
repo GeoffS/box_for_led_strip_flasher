@@ -1,5 +1,6 @@
 makeTop = false;
-makeBottom = false;
+makeBottomWithSideLeads = false;
+makeBottomWithBottomLeads = false;
 
 screwExtendingBelowConverterBoard = 5.5;
 bottomOfScrewHoleZ = 1;
@@ -12,13 +13,13 @@ include <../box_for_2x18650_battery_holder_with_switch/box_for_2x18650_battery_h
 
 boxInsideZ = boardPostZ + clearanceAboveBoard;
 
-module flasherBoxBottom()
+module basicFlasherBoxBottom()
 {
     difference()
     {
         union()
         {
-            boxBottom();
+            basicBoxBottom();
             ledWireSupport();
             converterMount();
         }
@@ -26,6 +27,24 @@ module flasherBoxBottom()
         converterMountHoles();
 
         ledWireHole();
+    }
+}
+
+module flasherBoxBottomWithSideLeads()
+{
+    difference()
+    {
+        basicFlasherBoxBottom();
+        sideBatteryLeadsHole();
+    }
+}
+
+module flasherBoxBottomWithBotomLeads()
+{
+    difference()
+    {
+        basicFlasherBoxBottom();
+        bottomBatteryLeadsHole();
     }
 }
 
@@ -123,16 +142,19 @@ module clip(d=0)
     // tcu([batteryLeadsHoleX, -200, -200], 400+d);
     // tcu([batteryLeadsHoleX+5-d, -200, -200], 400);
     // tcu([-10, -10, 10-d], 400);
+    // tcu([boxOutsideX-15.5-400, -200, -10], 400);
 }
 
 if(developmentRender)
 {
-	display() flasherBoxBottom();
+    display() flasherBoxBottomWithBotomLeads();
+	display() translate([60,0,0]) flasherBoxBottomWithSideLeads();
     // display() translate([0,0,0.1]) flasherBoxTop();
     // displayGhost() flasherBoxTop();
 }
 else
 {
 	if(makeTop) rotate([0,0,90]) rotate(180, [0,1,0]) translate([0,0,-boxOutsideZ]) flasherBoxTop();
-    if(makeBottom) rotate([0,0,90]) flasherBoxBottom();
+    if(makeBottomWithSideLeads) rotate([0,0,90]) flasherBoxBottomWithSideLeads();
+    if(makeBottomWithBottomLeads) rotate([0,0,90]) flasherBoxBottomWithBotomLeads();
 }
