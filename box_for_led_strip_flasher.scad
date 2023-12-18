@@ -22,11 +22,14 @@ module basicFlasherBoxBottom()
             basicBoxBottom();
             ledWireSupport();
             converterMount();
+            switchMountBody();
         }
 
         converterMountHoles();
 
         ledWireHole();
+
+        switchMountCutout();
     }
 }
 
@@ -140,6 +143,49 @@ module ledWireSupport()
     tcy([boxOutsideX/2, boxWallXY + d/2 + wireTieWidth, 0], d=d, h=boxWallZ+ledWireSupportZ);
 }
 
+switchBodyX = 10.8;
+switchBodyY = 5;
+
+swtichFaceX = 20;
+switchFaceY = 0.45;
+
+switchBodyZ = 5.9;
+
+switchSliderY = 4.2;
+switchSliderZ = 3.1;
+
+module switchMountBody()
+{
+    translate([boxOutsideX/2, 0, boxBottomTopZ]) difference()
+    {
+        x = switchBodyX + 2;
+        y = switchBodyY;
+        z = switchBodyZ + 1;
+        cxyz = y - boxWallXY;
+        cxyz2 = 2 * cxyz;
+
+        x1 = x + cxyz2;
+        y1 = y; // No chamfer on Y.
+        z1 = z + cxyz;
+
+        tcu([-x1/2, 0, -z1], [x1, y1, z1]);
+
+        // Trim a chamfer on the bottom:
+        translate([0,0,-z1-boxWallXY]) rotate([45,0,0]) tcu([-50, -50, -100], 100);
+
+        // Trim a chamfer on the sides:
+        doubleX() translate([-x1/2-boxWallXY,0,0]) rotate([0,0,45]) tcu([-50, -0, -50], 100);
+    }
+}
+
+module switchMountCutout()
+{
+    translate([boxOutsideX/2, 0, boxBottomTopZ]) difference()
+    {
+        
+    }
+}
+
 module flasherBoxTop()
 {
     boxTop();
@@ -154,12 +200,13 @@ module clip(d=0)
     // tcu([-10, -10, 10-d], 400);
     // tcu([boxOutsideX-15.5-400, -200, -10], 400);
     // tcu([-10, 20, -10], 400);
+    // tcu([boxOutsideX/2, -200, -10], 400);
 }
 
 if(developmentRender)
 {
     display() flasherBoxBottomWithBotomLeads();
-	display() translate([60,0,0]) flasherBoxBottomWithSideLeads();
+	// display() translate([60,0,0]) flasherBoxBottomWithSideLeads();
     // display() translate([0,0,0.1]) flasherBoxTop();
     // displayGhost() flasherBoxTop();
 }
