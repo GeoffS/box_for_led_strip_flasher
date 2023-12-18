@@ -198,14 +198,14 @@ module switchMountCutout()
     switchSliderRecess();
 }
 
-module switchSliderRecess()
+module switchSliderRecess(cutoutZ = 100)
 {
     sliderCutoutOffsetZ = switchOffsetZ - (switchBodyZ - switchSliderZ)/2;
 
     switchXform()
     {
         // Cutout for the switch-slider:
-        tcu([-switchSliderX/2, -100+20, -sliderCutoutOffsetZ], [switchSliderX, 100, 100]);
+        tcu([-switchSliderX/2, -100+20, -sliderCutoutOffsetZ], [switchSliderX, 100, cutoutZ]);
 
         // Depression for better access to the slider:
         hull()
@@ -226,7 +226,17 @@ module switchXform()
 
 module flasherBoxTop()
 {
-    boxTop();
+    
+    difference()
+    {
+        x = switchSliderX - 0.2;
+        union()
+        {
+            boxTop();
+            switchXform() tcu([-x/2, 0, -switchBodyZ], [x, switchSliderY, switchBodyZ]);
+        }
+        switchSliderRecess(cutoutZ = switchSliderZ);
+    }
 }
 
 module clip(d=0)
@@ -237,7 +247,7 @@ module clip(d=0)
     // tcu([batteryLeadsHoleX+5-d, -200, -200], 400);
     // tcu([-10, -10, 10-d], 400);
     // tcu([boxOutsideX-15.5-400, -200, -10], 400);
-    // tcu([-10, 20, -10], 400);
+    tcu([-200, 20, -200], 400);
     // tcu([boxOutsideX/2, -200, -10], 400);
     // tcu([0-d, -200, -200], 400);
 }
@@ -245,7 +255,7 @@ module clip(d=0)
 if(developmentRender)
 {
     display() translate([-boxOutsideX/2,0,-boxBottomTopZ]) flasherBoxBottomWithBotomLeads();
-    // displayGhost() translate([-boxOutsideX/2,0,-boxBottomTopZ]) flasherBoxTop();
+    display() translate([-boxOutsideX/2,0,-boxBottomTopZ+0.1]) flasherBoxTop();
 
 	// display() translate([60,0,0]) flasherBoxBottomWithSideLeads();
     // display() translate([0,0,0.1]) flasherBoxTop();
