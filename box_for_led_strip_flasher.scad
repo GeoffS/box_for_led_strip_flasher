@@ -188,14 +188,15 @@ module switchMountCutout()
 {
     translate([boxOutsideX/2, 0, boxBottomTopZ])
     {
+        sliderCutoutOffsetZ = switchOffsetZ; // - switchSliderZ/2;
         // Cutout for the switch body, recessed so the slider is flush with the outside:
-        tcu([-switchSliderX/2, -100+20, -switchOffsetZ], [switchSliderX, 100, 100]);
+        tcu([-switchSliderX/2, -100+20, -sliderCutoutOffsetZ], [switchSliderX, 100, 100]);
 
         // Cutout for the switch-face:
-        tcu([-swtichFaceX/2, switchSliderY, -switchOffsetZ], [swtichFaceX, switchFaceY, 100]);
+        tcu([-swtichFaceX/2, switchSliderY, -sliderCutoutOffsetZ], [swtichFaceX, switchFaceY, 100]);
 
-        // Cutout for the switch-body:
-        tcu([-switchBodyX/2, switchSliderY, -switchOffsetZ], [switchBodyX, 100, 100]);
+        // Cutout for the switch-slider:
+        tcu([-switchBodyX/2, -100+switchSliderY, -sliderCutoutOffsetZ], [switchBodyX, 100, 100]);
 
         // Depression for better access to the slider:
         hull()
@@ -225,13 +226,14 @@ module clip(d=0)
     // tcu([boxOutsideX-15.5-400, -200, -10], 400);
     // tcu([-10, 20, -10], 400);
     // tcu([boxOutsideX/2, -200, -10], 400);
-    // tcu([0-d, -200, -200], 400);
+    tcu([0-d, -200, -200], 400);
 }
 
 if(developmentRender)
 {
     display() translate([-boxOutsideX/2,0,-boxBottomTopZ]) flasherBoxBottomWithBotomLeads();
-    displayGhost() translate([-boxOutsideX/2,0,-boxBottomTopZ]) flasherBoxTop();
+    // displayGhost() translate([-boxOutsideX/2,0,-boxBottomTopZ]) flasherBoxTop();
+
 	// display() translate([60,0,0]) flasherBoxBottomWithSideLeads();
     // display() translate([0,0,0.1]) flasherBoxTop();
     // displayGhost() flasherBoxTop();
