@@ -242,7 +242,7 @@ module flasherBoxTop()
 
 module testPiece()
 {
-    difference()
+    translate([-20,0,0]) difference()
     {
         translate([-boxOutsideX/2,0,-19]) flasherBoxBottomWithBotomLeads();
 
@@ -251,13 +251,13 @@ module testPiece()
         tcu([-200, 30, -10], 400);
     }
 
-    // difference()
-    // {
-    //     translate([-boxOutsideX/2,0,33]) mirror([0,0,1]) flasherBoxTop();
+    translate([20,0,0]) difference()
+    {
+        translate([-boxOutsideX/2,0,boxOutsideZ]) mirror([0,0,1]) flasherBoxTop();
 
-    //     doubleX() tcu([14, -10, -200], 400);
-    //     tcu([-200, 12, -10], 400);
-    // }
+        doubleX() tcu([14, -10, -200], 400);
+        tcu([-200, 12, -10], 400);
+    }
 }
 
 module clip(d=0)
