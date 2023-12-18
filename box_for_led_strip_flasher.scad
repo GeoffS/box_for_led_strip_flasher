@@ -151,16 +151,19 @@ switchFaceY = 0.45;
 
 switchBodyZ = 5.9;
 
+switchSliderX = 7.7;
 switchSliderY = 4.2;
 switchSliderZ = 3.1;
+
+switchOffsetZ = switchBodyZ + topLipZ;
 
 module switchMountBody()
 {
     translate([boxOutsideX/2, 0, boxBottomTopZ]) difference()
     {
         x = switchBodyX + 2;
-        y = switchBodyY;
-        z = switchBodyZ + 1;
+        y = switchBodyY + switchSliderY;
+        z = switchOffsetZ + 1;
         cxyz = y - boxWallXY;
         cxyz2 = 2 * cxyz;
 
@@ -174,15 +177,22 @@ module switchMountBody()
         translate([0,0,-z1-boxWallXY]) rotate([45,0,0]) tcu([-50, -50, -100], 100);
 
         // Trim a chamfer on the sides:
-        doubleX() translate([-x1/2-boxWallXY,0,0]) rotate([0,0,45]) tcu([-50, -0, -50], 100);
+        doubleX() translate([-x1/2-boxWallXY, 3, 0]) rotate([0,0,35]) tcu([-50, -0, -50], 100);
     }
 }
 
 module switchMountCutout()
 {
-    translate([boxOutsideX/2, 0, boxBottomTopZ]) difference()
+    translate([boxOutsideX/2, 0, boxBottomTopZ])
     {
-        
+        // Cutout for the switch body, recessed so the slider is flush with the outside:
+        tcu([-switchSliderX/2, -100+20, -switchOffsetZ], [switchSliderX, 100, 100]);
+
+        // Cutout for the switch-face:
+        tcu([-swtichFaceX/2, switchSliderY, -switchOffsetZ], [swtichFaceX, switchFaceY, 100]);
+
+        // Cutout for the switch-body:
+        tcu([-switchBodyX/2, switchSliderY, -switchOffsetZ], [switchBodyX, 100, 100]);
     }
 }
 
@@ -205,7 +215,7 @@ module clip(d=0)
 
 if(developmentRender)
 {
-    display() flasherBoxBottomWithBotomLeads();
+    display() translate([-boxOutsideX/2,0,-boxBottomTopZ]) flasherBoxBottomWithBotomLeads();
 	// display() translate([60,0,0]) flasherBoxBottomWithSideLeads();
     // display() translate([0,0,0.1]) flasherBoxTop();
     // displayGhost() flasherBoxTop();
