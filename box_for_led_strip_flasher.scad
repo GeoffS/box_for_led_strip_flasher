@@ -159,7 +159,7 @@ switchOffsetZ = switchBodyZ + topLipZ;
 
 module switchMountBody()
 {
-    translate([boxOutsideX/2, 0, boxBottomTopZ]) difference()
+    switchXform() difference()
     {
         x = switchBodyX + 2;
         y = switchBodyY + switchSliderY;
@@ -186,29 +186,42 @@ module switchMountBody()
 
 module switchMountCutout()
 {
-    translate([boxOutsideX/2, 0, boxBottomTopZ])
+    switchXform()
     {
-        sliderCutoutOffsetZ = switchOffsetZ; // - switchSliderZ/2;
         // Cutout for the switch body, recessed so the slider is flush with the outside:
-        tcu([-switchSliderX/2, -100+20, -sliderCutoutOffsetZ], [switchSliderX, 100, 100]);
+        tcu([-switchBodyX/2, switchSliderY, -switchOffsetZ], [switchBodyX, 20, 100]);
 
         // Cutout for the switch-face:
-        tcu([-swtichFaceX/2, switchSliderY, -sliderCutoutOffsetZ], [swtichFaceX, switchFaceY, 100]);
+        tcu([-swtichFaceX/2, switchSliderY, -switchOffsetZ], [swtichFaceX, switchFaceY, 100]);
+    }
 
+    switchSliderRecess();
+}
+
+module switchSliderRecess()
+{
+    sliderCutoutOffsetZ = switchOffsetZ - (switchBodyZ - switchSliderZ)/2;
+
+    switchXform()
+    {
         // Cutout for the switch-slider:
-        tcu([-switchBodyX/2, -100+switchSliderY, -sliderCutoutOffsetZ], [switchBodyX, 100, 100]);
+        tcu([-switchSliderX/2, -100+20, -sliderCutoutOffsetZ], [switchSliderX, 100, 100]);
 
         // Depression for better access to the slider:
         hull()
         {
             dx = 1.76;
             d = switchSliderZ + dx;
-            // doubleX() tsp([switchSliderX/2,0,-switchOffsetZ + d/2], d=d);
-            doubleX() translate([switchSliderX/2-d-1, switchSliderY-2, -switchOffsetZ + switchSliderZ/2]) 
+            doubleX() translate([switchSliderX/2-d-0.35, switchSliderY-2, -sliderCutoutOffsetZ+d/2]) 
                 rotate([90,0,0]) 
                     cylinder(d2=d+20, d1=d, h=10);
         }
     }
+}
+
+module switchXform()
+{
+    translate([boxOutsideX/2, 0, boxBottomTopZ]) children();
 }
 
 module flasherBoxTop()
@@ -226,7 +239,7 @@ module clip(d=0)
     // tcu([boxOutsideX-15.5-400, -200, -10], 400);
     // tcu([-10, 20, -10], 400);
     // tcu([boxOutsideX/2, -200, -10], 400);
-    tcu([0-d, -200, -200], 400);
+    // tcu([0-d, -200, -200], 400);
 }
 
 if(developmentRender)
