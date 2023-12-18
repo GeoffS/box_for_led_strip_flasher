@@ -147,8 +147,8 @@ module ledWireSupport()
 switchBodyX = 10.8;
 switchBodyY = 5;
 
-swtichFaceX = 20;
-switchFaceY = 0.45;
+swtichFaceX = 21;
+switchFaceY = 0.5;
 
 switchBodyZ = 5.9;
 
@@ -242,22 +242,22 @@ module flasherBoxTop()
 
 module testPiece()
 {
-    // difference()
-    // {
-    //     translate([-boxOutsideX/2,0,-19]) flasherBoxBottomWithBotomLeads();
-
-    //     tcu([-200, -200, -400], 400);
-    //     doubleX() tcu([14, -10, -200], 400);
-    //     tcu([-200, 30, -10], 400);
-    // }
-
     difference()
     {
-        translate([-boxOutsideX/2,0,33]) mirror([0,0,1]) flasherBoxTop();
+        translate([-boxOutsideX/2,0,-19]) flasherBoxBottomWithBotomLeads();
 
+        tcu([-200, -200, -400], 400);
         doubleX() tcu([14, -10, -200], 400);
-        tcu([-200, 12, -10], 400);
+        tcu([-200, 30, -10], 400);
     }
+
+    // difference()
+    // {
+    //     translate([-boxOutsideX/2,0,33]) mirror([0,0,1]) flasherBoxTop();
+
+    //     doubleX() tcu([14, -10, -200], 400);
+    //     tcu([-200, 12, -10], 400);
+    // }
 }
 
 module clip(d=0)
