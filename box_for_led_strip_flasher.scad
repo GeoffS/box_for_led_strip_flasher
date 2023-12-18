@@ -178,6 +178,9 @@ module switchMountBody()
 
         // Trim a chamfer on the sides:
         doubleX() translate([-x1/2-boxWallXY, 3, 0]) rotate([0,0,35]) tcu([-50, -0, -50], 100);
+
+        // Trim the top to clear the box-cover:
+        tcu([-50, -50, -topLipZ-0.1], 100);
     }
 }
 
@@ -222,11 +225,13 @@ module clip(d=0)
     // tcu([boxOutsideX-15.5-400, -200, -10], 400);
     // tcu([-10, 20, -10], 400);
     // tcu([boxOutsideX/2, -200, -10], 400);
+    // tcu([0-d, -200, -200], 400);
 }
 
 if(developmentRender)
 {
     display() translate([-boxOutsideX/2,0,-boxBottomTopZ]) flasherBoxBottomWithBotomLeads();
+    displayGhost() translate([-boxOutsideX/2,0,-boxBottomTopZ]) flasherBoxTop();
 	// display() translate([60,0,0]) flasherBoxBottomWithSideLeads();
     // display() translate([0,0,0.1]) flasherBoxTop();
     // displayGhost() flasherBoxTop();
