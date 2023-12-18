@@ -193,6 +193,17 @@ module switchMountCutout()
 
         // Cutout for the switch-body:
         tcu([-switchBodyX/2, switchSliderY, -switchOffsetZ], [switchBodyX, 100, 100]);
+
+        // Depression for better access to the slider:
+        hull()
+        {
+            dx = 1.76;
+            d = switchSliderZ + dx;
+            // doubleX() tsp([switchSliderX/2,0,-switchOffsetZ + d/2], d=d);
+            doubleX() translate([switchSliderX/2-d-1, switchSliderY-2, -switchOffsetZ + switchSliderZ/2]) 
+                rotate([90,0,0]) 
+                    cylinder(d2=d+20, d1=d, h=10);
+        }
     }
 }
 
