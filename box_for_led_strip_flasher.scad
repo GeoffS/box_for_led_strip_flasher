@@ -1,7 +1,7 @@
 makeTop = false;
 makeBottomWithSideLeads = false;
 makeBottomWithBottomLeads = false;
-makeTest = false;
+// makeTest = false;
 
 screwExtendingBelowConverterBoard = 5.5;
 bottomOfScrewHoleZ = 1;
