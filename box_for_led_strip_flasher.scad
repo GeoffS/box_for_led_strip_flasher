@@ -213,7 +213,7 @@ module switchSliderRecess(cutoutZ = 100)
         {
             dx = 1.76;
             d = switchSliderZ + dx;
-            doubleX() translate([switchSliderX/2-d-0.35, switchSliderY-2, -sliderCutoutOffsetZ+d/2]) 
+            doubleX() translate([switchSliderX/2-1.2*d, switchSliderY-2, -sliderCutoutOffsetZ + switchSliderZ/2]) 
                 rotate([90,0,0]) 
                     cylinder(d2=d+20, d1=d, h=10);
         }
@@ -275,9 +275,10 @@ module clip(d=0)
 
 if(developmentRender)
 {
-    display() testPiece();
-    // display() translate([-boxOutsideX/2,0,-boxBottomTopZ]) flasherBoxBottomWithBotomLeads();
-    // display() translate([-boxOutsideX/2,0,-boxBottomTopZ+0.1]) flasherBoxTop();
+    // display() testPiece();
+
+    display() translate([-boxOutsideX/2,0,-boxBottomTopZ]) flasherBoxBottomWithBotomLeads();
+    display() translate([-boxOutsideX/2,0,-boxBottomTopZ+0.1]) flasherBoxTop();
 
 	// display() translate([60,0,0]) flasherBoxBottomWithSideLeads();
     // display() translate([0,0,0.1]) flasherBoxTop();
