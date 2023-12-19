@@ -141,7 +141,7 @@ module ledWireSupport()
 {
     d=ledWireSupportDia;
     wireTieWidth = 4;
-    tcy([boxOutsideX/2, boxWallXY + d/2 + wireTieWidth, nothing], d=d, h=boxWallZ+ledWireSupportZ);
+    tcy([boxOutsideX/2, boxWallXY + d/2 + wireTieWidth, 0], d=d, h=boxWallZ+ledWireSupportZ);
 }
 
 switchBodyX = 10.8;
@@ -270,17 +270,17 @@ module clip(d=0)
     // tcu([boxOutsideX-15.5-400, -200, -10], 400);
     // tcu([-200, 20, -200], 400);
     // tcu([boxOutsideX/2, -200, -10], 400);
-    // tcu([0-d, -200, -200], 400);
+    tcu([0-d, -200, -200], 400);
 }
 
 if(developmentRender)
 {
     // display() testPiece();
 
-    display() flasherBoxBottomWithBotomLeads();
+    // display() flasherBoxBottomWithBotomLeads();
 
-    // display() translate([-boxOutsideX/2,0,-boxBottomTopZ]) flasherBoxBottomWithBotomLeads();
-    // display() translate([-boxOutsideX/2,0,-boxBottomTopZ+0.1]) flasherBoxTop();
+    display() translate([-boxOutsideX/2,0,-boxBottomTopZ]) flasherBoxBottomWithBotomLeads();
+    display() translate([-boxOutsideX/2,0,-boxBottomTopZ+0.1]) flasherBoxTop();
 
 	// display() translate([60,0,0]) flasherBoxBottomWithSideLeads();
     // display() translate([0,0,0.1]) flasherBoxTop();
