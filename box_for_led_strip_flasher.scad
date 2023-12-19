@@ -98,8 +98,8 @@ module converterPost(p)
 // ledWireSupportZ = 10;
 
 // 3mm Dyneema sheath:
-ledStripWireZ = 3.4;
-ledStripWireX = 5.2;
+ledStripWireZ = 3.5;
+ledStripWireX = 5.3;
 ledWireSupportDia = 11;
 ledWireSupportZ = 11;
 
@@ -141,7 +141,7 @@ module ledWireSupport()
 {
     d=ledWireSupportDia;
     wireTieWidth = 4;
-    tcy([boxOutsideX/2, boxWallXY + d/2 + wireTieWidth, 0], d=d, h=boxWallZ+ledWireSupportZ);
+    tcy([boxOutsideX/2, boxWallXY + d/2 + wireTieWidth, nothing], d=d, h=boxWallZ+ledWireSupportZ);
 }
 
 switchBodyX = 10.8;
@@ -277,8 +277,10 @@ if(developmentRender)
 {
     // display() testPiece();
 
-    display() translate([-boxOutsideX/2,0,-boxBottomTopZ]) flasherBoxBottomWithBotomLeads();
-    display() translate([-boxOutsideX/2,0,-boxBottomTopZ+0.1]) flasherBoxTop();
+    display() flasherBoxBottomWithBotomLeads();
+
+    // display() translate([-boxOutsideX/2,0,-boxBottomTopZ]) flasherBoxBottomWithBotomLeads();
+    // display() translate([-boxOutsideX/2,0,-boxBottomTopZ+0.1]) flasherBoxTop();
 
 	// display() translate([60,0,0]) flasherBoxBottomWithSideLeads();
     // display() translate([0,0,0.1]) flasherBoxTop();
