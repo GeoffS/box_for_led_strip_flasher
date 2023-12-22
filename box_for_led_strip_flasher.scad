@@ -1,6 +1,7 @@
 makeTop = false;
 makeBottomWithSideLeads = false;
 makeBottomWithBottomLeads = false;
+makeSwitchFiller = false;
 // makeTest = false;
 
 screwExtendingBelowConverterBoard = 5.5;
@@ -260,6 +261,19 @@ module testPiece()
     }
 }
 
+module switchFiller()
+{
+    x1 = 8;
+    y1 = 13.4;
+    z1 = 3.5;
+    tcu([0, -y1/2, 0], [x1, y1, z1]);
+
+    x2 = 4.6;
+    y2 = 7.9;
+    z2 = 2.8 + z1;
+    tcu([0.8, -y2/2, 0], [x2, y2, z2]);
+}
+
 module clip(d=0)
 {
     // tc([-200, boxOutsideY/2-d, -200], [400, 400, 400]);
@@ -270,17 +284,19 @@ module clip(d=0)
     // tcu([boxOutsideX-15.5-400, -200, -10], 400);
     // tcu([-200, 20, -200], 400);
     // tcu([boxOutsideX/2, -200, -10], 400);
-    tcu([0-d, -200, -200], 400);
+    // tcu([0-d, -200, -200], 400);
 }
 
 if(developmentRender)
 {
+    display() switchFiller();
+
     // display() testPiece();
 
     // display() flasherBoxBottomWithBotomLeads();
 
-    display() translate([-boxOutsideX/2,0,-boxBottomTopZ]) flasherBoxBottomWithBotomLeads();
-    display() translate([-boxOutsideX/2,0,-boxBottomTopZ+0.1]) flasherBoxTop();
+    // display() translate([-boxOutsideX/2,0,-boxBottomTopZ]) flasherBoxBottomWithBotomLeads();
+    // display() translate([-boxOutsideX/2,0,-boxBottomTopZ+0.1]) flasherBoxTop();
 
 	// display() translate([60,0,0]) flasherBoxBottomWithSideLeads();
     // display() translate([0,0,0.1]) flasherBoxTop();
@@ -291,5 +307,6 @@ else
 	if(makeTop) rotate([0,0,90]) rotate(180, [0,1,0]) translate([0,0,-boxOutsideZ]) flasherBoxTop();
     if(makeBottomWithSideLeads) rotate([0,0,90]) flasherBoxBottomWithSideLeads();
     if(makeBottomWithBottomLeads) rotate([0,0,90]) flasherBoxBottomWithBotomLeads();
+    if(makeSwitchFiller) switchFiller();
     if(makeTest) testPiece();
 }
